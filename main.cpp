@@ -164,15 +164,17 @@ void multipleFunctions(){
     std::cout << x << " - " << y <<std::endl;
 }
 
+void callMethViaHpp(){
+    helloWorld();
+}
 
 int main()
 {
-    
-    helloWorld();
-    // std::cout << " yes enorme " <<std::endl;
-    // std::string uname;
-    // std::getline(std::cin, uname);
-    // std::cout << "val saisie : " << uname << std::endl;
+    //firstTutorial();
+    //consoleInOut();
+    //operators();
+    //multipleFunctions();
+    //callMethViaHpp();
     
     return 0;
 }
