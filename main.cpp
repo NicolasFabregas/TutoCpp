@@ -5,8 +5,16 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cassert>
+#include <fstream>
 
-//void helloWorld();
+
+enum class Element:int{
+    earth,
+    air,
+    fire,
+    water
+};
 
 void setNumbersWithReference(int& a, int& b){
     a+=30;
@@ -168,6 +176,79 @@ void callMethViaHpp(){
     helloWorld();
 }
 
+void createPlayer(std::string name, int level){
+    try{
+        if(name==""){
+            throw std::invalid_argument("pas le bon argument name");
+        }
+        if(level<=0){
+            throw std::invalid_argument("pas le bon argument level");
+        }
+        std::cout << "Creation de " << name << ", de niveau " << level << std::endl;
+        // assert(name!="" && "pas de nom definit");
+        // assert(level>0 && "niveau negatif ou 0");
+    }
+    catch(const std::invalid_argument& e){
+        std::cout<< e.what() <<std::endl;
+    }
+    catch(const std::exception& e){
+        std::cout<< "une erreur s'est produite" <<std::endl;
+    }
+}
+
+void testError(){
+        createPlayer("robert", 34);
+        createPlayer("robert", -34);
+        createPlayer("", 34);
+}
+
+void testEnum(){
+    Element e{Element::water};
+    std::cout<< static_cast<int>(e) << std::endl;
+    e=Element::air; 
+    std::cout<< static_cast<int>(e) << std::endl;
+    if(e==Element::water){
+        std::cout<< static_cast<int>(e) << std::endl;
+    }
+    else{
+        e=Element::fire;
+        std::cout<< static_cast<int>(e) << std::endl;
+    }
+}
+
+/* std::ios::out,
+* std::ios::in;
+* std::ios::binary; (image)
+* std::ios::trunc
+* std::ios::ate (at the end)
+* std::ios::app (append)
+*/
+void fichiers(){
+    std::ifstream f{"animals.txt"};
+    if(f.is_open()){
+        std::string name{" "};
+        f>> name;
+        std::cout << name << std::endl;
+        f>> name;
+        std::cout << name << std::endl;
+        f.close();
+    }
+    std::ofstream f1{"data.txt"};
+    if(f1.is_open()){
+        int level=15;
+        f1 << "Hello World ! " << level;
+        //f1 << level;
+    }
+    std::ifstream f2{"animals.txt"};
+    if(f2.is_open()){
+        std::string name{" "};
+        while(std::getline(f2 >> std::ws,  name)){
+            std::cout << name << std::endl;
+        }
+        f2.close();
+    }
+}
+
 int main()
 {
     //firstTutorial();
@@ -175,7 +256,10 @@ int main()
     //operators();
     //multipleFunctions();
     //callMethViaHpp();
-    
+    //testError();
+    //testEnum();
+    fichiers();
+    std::cin.get(); 
     return 0;
 }
 
