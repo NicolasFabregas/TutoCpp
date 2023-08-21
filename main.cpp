@@ -18,6 +18,7 @@
 #include <vector>
 #include <cassert>
 #include <fstream>
+#include <array>
 
 
 enum class Element:int{
@@ -322,6 +323,81 @@ void testPolymorphisme(){
     // Someone[10] someones;
 }
 
+void testArray(){
+    std::array<int, 5> arr{78, 45, 96, 35, 21};
+    for(const auto& element : arr){
+        std::cout <<element <<std::endl;
+    }
+    for(const auto& element : arr){
+        std::cout <<"- "<<element <<std::endl;
+    }
+    arr.fill(555);
+    for(int i=0;i<arr.size();i++){
+        std::cout <<"--  "<<arr[i] <<std::endl;
+    }
+    std::cout <<arr[2] <<std::endl;
+    arr[2]=2;
+    std::cout <<arr[2] <<std::endl;
+    std::cout <<arr.at(2) <<std::endl;
+    std::cout << "taille : " << arr.size() <<std::endl;
+    // std::cout << "taille : " << std::size(arr) <<std::endl; //a privilegier, mais marche pas avec c++17
+    // std::empty(arr) marche pas
+    if(arr.empty()){
+        std::cout << "Oui" <<std::endl;
+    }
+    else{
+        std::cout << "Non" <<std::endl;
+    }
+        std::cout << arr.front() <<std::endl;
+        std::cout << arr.back() <<std::endl;
+}
+
+void testArrayObject(){
+    std::vector<std::string> arr{};
+    arr.push_back("azer");
+    if(arr.empty()){
+        std::cout << "vide" <<std::endl;
+    }
+    else{
+        std::cout << "rempli" <<std::endl;
+    }
+    arr.pop_back();
+    if(arr.empty()){
+        std::cout << "vide" <<std::endl;
+    }
+    else{
+        std::cout << "rempli" <<std::endl;
+    }
+    arr.push_back("azer");
+    arr.push_back("azeraa");
+    arr.clear();
+    if(arr.empty()){
+        std::cout << "vide" <<std::endl;
+    }
+    else{
+        std::cout << "rempli" <<std::endl;
+    }
+    std::vector<std::string> copy{};
+    copy=arr;
+}
+
+ void testArrayPolymorphisme(){
+//     English en{"Jack"};
+//     English en1{"Rick"};
+//     English en2{"Morty"};
+//     Indonesian id{"Bunda"};
+//     // Someone s;
+//     // s=new Indonesian("Kira");
+//     std::vector<Someone*> people {};
+//     people.push_back(&en);
+//     people.push_back(&en1);
+//     people.push_back(&en2);
+//     people.push_back(&id);
+//     for(auto& p : people){
+//         p.sayGoodNight();
+//     }
+}
+
 int main()
 {
     // firstTutorial();
@@ -338,7 +414,11 @@ int main()
     // testWindow();
     // testEncapsulation();
     // testUnitPlayer();
-    testPolymorphisme();
+    // testPolymorphisme();
+    // testArray();
+    // testArrayObject();
+    // // // testArrayPolymorphisme();
+
     std::cin.get(); 
     return 0;
 }
