@@ -281,6 +281,16 @@ void testWindow(){
     newApp.run();
 }
 
+void testEncapsulation(){
+    Window w1{"azer Nico", 45, 67};
+    std::cout << w1.getTitle() << std::endl;
+    // w1.setTitle("azerlkqsldqsidn qsdfqiusdfq qsdf");
+    // std::cout << w1.getTitle() << std::endl;
+    w1.setTitle("tralala");
+    std::cout << w1.getTitle() << std::endl;
+
+}
+
 int main()
 {
     // firstTutorial();
@@ -294,7 +304,8 @@ int main()
     // testNamespace();
     // testStruct();
     // testObj();
-    testWindow();
+    // testWindow();
+    testEncapsulation();
     std::cin.get(); 
     return 0;
 }
