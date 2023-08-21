@@ -2,6 +2,9 @@
 //
 
 #include "headers/utils.hpp"
+#include "headers/util.hpp"
+#include "headers/structtest.hpp"
+#include "headers/classtest.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -249,6 +252,29 @@ void fichiers(){
     }
 }
 
+void testNamespace(){ 
+    Util::testNS();
+    testNSGlobal();
+}
+
+
+
+void testStruct(){
+    struct Product p{"papier toilettes", 1.45f, true};
+    std::cout << "prix : " << p.price << std::endl;
+    p.price*=1.2;
+    std::cout << "prix : " << p.price << std::endl;
+
+}
+
+void testObj(){
+    Point p1{};
+    Point p2{p1};
+    //std::cout << "x : " << p1.x << ", y : " << p1.y << std::endl;
+    // p1.x=45;
+    // std::cout << "x : " << p1.x << ", y : " << p1.y << std::endl;
+}
+
 int main()
 {
     //firstTutorial();
@@ -258,7 +284,10 @@ int main()
     //callMethViaHpp();
     //testError();
     //testEnum();
-    fichiers();
+    //fichiers();
+    //testNamespace();
+    //testStruct();
+    testObj();
     std::cin.get(); 
     return 0;
 }
