@@ -6,6 +6,10 @@
 #include "headers/structtest.hpp"
 #include "headers/classtest.hpp"
 #include "headers/window.hpp"
+#include "headers/unit.hpp"
+#include "headers/character.hpp"
+#include "headers/quest.hpp"
+#include "headers/queststatus.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -291,6 +295,20 @@ void testEncapsulation(){
 
 }
 
+void testUnitPlayer(){
+    Unit npc{11, "Forgeron en slip"};
+    std::cout << npc.getName() << std::endl;
+    std::cout << npc.getId() << std::endl;
+    Character c{16, "gwendoline", 1};
+    std::cout << c.getName() << std::endl;
+    std::cout << c.getId() << std::endl;
+    std::cout << c.getId() << std::endl;
+    Quest q{"starting quest", "hunt wolves", npc.getId()};
+    q.show();
+    std::cout << (int)q.getStatus() << std::endl;
+
+}
+
 int main()
 {
     // firstTutorial();
@@ -305,7 +323,8 @@ int main()
     // testStruct();
     // testObj();
     // testWindow();
-    testEncapsulation();
+    // testEncapsulation();
+    testUnitPlayer();
     std::cin.get(); 
     return 0;
 }
