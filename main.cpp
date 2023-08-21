@@ -5,6 +5,7 @@
 #include "headers/util.hpp"
 #include "headers/structtest.hpp"
 #include "headers/classtest.hpp"
+#include "headers/window.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -257,8 +258,6 @@ void testNamespace(){
     testNSGlobal();
 }
 
-
-
 void testStruct(){
     struct Product p{"papier toilettes", 1.45f, true};
     std::cout << "prix : " << p.price << std::endl;
@@ -275,19 +274,27 @@ void testObj(){
     // std::cout << "x : " << p1.x << ", y : " << p1.y << std::endl;
 }
 
+void testWindow(){
+    Window w1{};
+    Window w2{w1};
+    Window newApp{"azer Nico", 45, 67};
+    newApp.run();
+}
+
 int main()
 {
-    //firstTutorial();
-    //consoleInOut();
-    //operators();
-    //multipleFunctions();
-    //callMethViaHpp();
-    //testError();
-    //testEnum();
-    //fichiers();
-    //testNamespace();
-    //testStruct();
-    testObj();
+    // firstTutorial();
+    // consoleInOut();
+    // operators();
+    // multipleFunctions();
+    // callMethViaHpp();
+    // testError();
+    // testEnum();
+    // fichiers();
+    // testNamespace();
+    // testStruct();
+    // testObj();
+    testWindow();
     std::cin.get(); 
     return 0;
 }
