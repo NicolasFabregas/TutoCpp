@@ -10,6 +10,9 @@
 #include "headers/character.hpp"
 #include "headers/quest.hpp"
 #include "headers/queststatus.hpp"
+#include "headers/someone.hpp"
+#include "headers/english.hpp"
+#include "headers/indonesian.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -309,6 +312,16 @@ void testUnitPlayer(){
 
 }
 
+void testPolymorphisme(){
+    English en{"Jack"};
+    en.sayGoodNight();
+
+    Indonesian id{"Bunda"};
+    id.sayGoodNight();
+
+    // Someone[10] someones;
+}
+
 int main()
 {
     // firstTutorial();
@@ -324,7 +337,8 @@ int main()
     // testObj();
     // testWindow();
     // testEncapsulation();
-    testUnitPlayer();
+    // testUnitPlayer();
+    testPolymorphisme();
     std::cin.get(); 
     return 0;
 }
