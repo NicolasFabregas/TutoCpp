@@ -398,6 +398,33 @@ void testArrayObject(){
 //     }
 }
 
+void testCharacteres(){
+    std::string s{"Hello World !"};
+    std::cout << s <<std::endl;
+    std::cout << s[0] <<std::endl;
+    std::cout << s.at(0) <<std::endl;
+    std::cout << s.front() <<std::endl;
+    std::cout << s.back() <<std::endl;
+    s="Bonjour";
+    s.push_back('!');
+    std::cout << s.back() <<std::endl;
+    s.pop_back();
+    std::cout << s.back() <<std::endl;
+    s.append(5, '!');
+    std::cout << s <<std::endl;
+    std::cout << s.length() <<std::endl;
+    std::cout << s.size() <<std::endl;
+    for(auto& c : s){
+        std::cout << c <<std::endl;
+    }
+    std::cout << s.substr(2, 5) <<std::endl;
+    std::string s1="azedfvbnjiklp";
+    s.swap(s1);
+    std::cout << s <<std::endl;
+    std::cout << s1 <<std::endl;
+
+}
+
 int main()
 {
     // firstTutorial();
