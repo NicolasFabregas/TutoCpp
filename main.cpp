@@ -423,6 +423,14 @@ void testCharacteres(){
     std::cout << s <<std::endl;
     std::cout << s1 <<std::endl;
 
+    if(s1.starts_with("Bonj")){ // c++20
+        std::cout << "Oui" <<std::endl;
+    }
+    
+    if(s1.contains("Bonj")){ //c++20
+        std::cout << "Oui" <<std::endl;
+    }
+    std::string_view aezr;
 }
 
 int main()
@@ -445,6 +453,9 @@ int main()
     // testArray();
     // testArrayObject();
     // // // testArrayPolymorphisme();
+    testCharacteres();
+
+
 
     std::cin.get(); 
     return 0;

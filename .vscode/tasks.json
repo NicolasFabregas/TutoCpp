@@ -16,9 +16,10 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++.exe build active file",
-            "command": "C:\\MinGW\\bin\\g++.exe",
+            "command": "C:\\mingw64\\bin\\g++.exe",
             "args": [
-                "-fdiagnostics-color=always",
+                "--std",
+                "c++23",
                 "-g",
                 "${workspaceFolder}/*.cpp",
                 "${workspaceFolder}/sources/*.cpp",
