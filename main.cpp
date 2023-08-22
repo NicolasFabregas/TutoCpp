@@ -20,6 +20,7 @@
 #include <fstream>
 #include <array>
 #include <stack>
+#include <list>
 
 
 enum class Element:int{
@@ -458,6 +459,42 @@ void testPile(){
         st.pop();
     }
 }
+/*
+* front(), back(), size(), empty(), push_front(), push_back, pop_front(), pop_back, insert(), clear()
+* sort(), reverse()
+*/
+void testList(){
+    std::list<std::string> li{"azer", "qsdf"};
+    std::cout<< "premier element " << li.front() << std::endl;
+    std::cout<< "dernier element " << li.back() << std::endl;
+    std::cout<< "taille " << li.size() << std::endl;
+    if(li.empty()){
+        std::cout<< "Liste vide"<< std::endl;
+    }
+    for(const auto& ele : li){
+        std::cout<<"-" << ele << std::endl;
+    }
+    li.push_front("poiu");
+    li.push_back("wxcv");
+    for(const auto& ele : li){
+        std::cout<<"-- " << ele << std::endl;
+    }
+
+    li.sort();
+    for(const auto& ele : li){
+        std::cout<<"---  "<< ele << std::endl;
+    }
+    li.reverse();
+    for(const auto& ele : li){
+        std::cout<<"----   "<< ele << std::endl;
+    }
+
+    li.pop_front();
+    li.pop_back();
+    for(const auto& ele : li){
+        std::cout<<"-----    "<< ele << std::endl;
+    }
+}
 
 int main()
 {
@@ -480,7 +517,8 @@ int main()
     // testArrayObject();
     // // // testArrayPolymorphisme();
     // testCharacteres();
-    testPile();
+    // testPile();
+    testList();
 
 
     std::cin.get(); 
