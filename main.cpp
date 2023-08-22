@@ -25,6 +25,7 @@
 #include <unordered_set>
 #include <map>
 #include <set>
+#include <algorithm>
 
 
 enum class Element:int{
@@ -601,6 +602,123 @@ void testIterateur(){
 
 }
 
+
+/*
+* std::fill(),
+* std::equal(),
+* std::search(), std::find(), std::replace(),
+* std::count(),
+* std::sort(), std::reverse(),
+* std::remove(),  std::erase(),
+* std::swap(),
+std::all_of(), std::any_of(), std::none_of(),
+*/
+void print_elements(int n){
+    std::cout << n <<std::endl;
+}
+
+bool is_pair(int n){
+    return n%2==0;
+}
+
+void testAlgo(){
+    std::vector<int> vec{1,2,3,4,5};
+    for (const auto& element : vec){
+        std::cout << element <<std::endl;
+    }
+    std::fill(std::begin(vec), std::end(vec), 0);
+    vec[2]=-3;
+    for (const auto& element : vec){
+        std::cout << element <<std::endl;
+    }
+    std::vector<int> vec1{1,2,3,4,5};
+    std::vector<int> vec2{1,2,3,4,5};
+    if(std::equal(std::begin(vec1), std::end(vec1), std::begin(vec2), std::end(vec2))){
+        std::cout <<"1 Oui !"<< std::endl;
+    }
+    
+    std::vector<int> vec3{1,2,3,4,5};
+    auto begin=std::begin(vec3);
+    auto end=std::end(vec3);
+    if(std::find(begin, end, 3)!=end){
+        std::cout <<"2 Oui !"<< std::endl;
+    }
+
+
+    std::string s="Bonjour";
+    std::string search_term="jour";
+    auto s_begin=std::begin(s);
+    auto s_end=std::end(s);
+    auto search_begin=std::begin(search_term);
+    auto search_end=std::end(search_term);
+    if(std::search(s_begin, s_end, search_begin, search_end)!=s_end){
+        std::cout <<"3 Oui !"<< std::endl;
+    }
+
+
+    s="Bonjour";
+    s_begin=std::begin(s);
+    s_end=std::end(s);
+    std::cout <<std::count(s_begin, s_end, 'o')<< " occurences de o dans bonjour"<< std::endl;
+
+
+    vec={5, 7, 3, 1, 9, 4, 8, 6, 45, 458, -84};
+    auto begin2=std::begin(vec);
+    auto end2=std::end(vec);
+    std::sort(begin2, end2);
+    for (const auto& element : vec){
+        std::cout << element <<std::endl;
+    }
+
+
+    std::string random_s{"lala lili lulu lele lyly"};
+    std::cout << random_s <<std::endl;
+    std::replace(std::begin(random_s), std::end(random_s), 'o', 'i');
+    std::cout << random_s <<std::endl;
+
+
+    vec={5, 7, 3, 1, 9, 4, 8, 6, 45, 458, -84};
+    std::erase(vec, 5);
+    for (const auto& element : vec){
+        std::cout << element <<std::endl;
+    }
+
+
+    int a=4;
+    int b=12;
+    std::cout << "a="<< a<< ", b="<< b <<std::endl;
+    std::swap(a, b);
+    std::cout << "a="<< a<< ", b="<< b <<std::endl;
+
+    
+    vec={1,2,3,4,5};
+    begin2=std::begin(vec);
+    end2=std::end(vec);
+
+    std::for_each(begin2, end2, print_elements);
+
+
+    vec={2,4,6,8,0};
+    begin2=std::begin(vec);
+    end2=std::end(vec);
+    std::cout <<"all_of :" << std::all_of(begin2, end2, is_pair) <<std::endl;
+
+
+    vec={1,3,5,7,9};
+    begin2=std::begin(vec);
+    end2=std::end(vec);
+    std::cout <<"none_of :" << std::none_of(begin2, end2, is_pair) <<std::endl;
+
+
+    vec={0,1,3,5,7,9};
+    begin2=std::begin(vec);
+    end2=std::end(vec);
+    std::cout <<"any_of :" << std::any_of(begin2, end2, is_pair) <<std::endl;
+    std::vector<int>::iterator res=std::min_element(vec.begin(), vec.end());
+    std::cout <<"min :" << *res <<std::endl;
+}
+
+
 int main()
 {
     // firstTutorial();
@@ -626,7 +744,8 @@ int main()
     // testList();
     // testMap();
     // testSet();
-    testIterateur();
+    // testIterateur();
+    testAlgo();
 
     std::cin.get(); 
     return 0;
