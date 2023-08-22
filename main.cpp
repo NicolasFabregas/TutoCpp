@@ -22,7 +22,7 @@
 #include <stack>
 #include <list>
 #include <unordered_map>
-#include <ordered_map>
+#include <map>
 
 
 enum class Element:int{
@@ -498,6 +498,39 @@ void testList(){
     }
 }
 
+/*
+ insert()/erase(), at(), empty(), size(), contains(), 
+*/
+void testMap(){
+    std::unordered_map<int, std::string> um1{{3, "arbre"}, {1, "Maison"}, {2, "Fourchette"}};
+    std::cout<< um1[1] <<std::endl;
+    um1[1]="Villa";
+    std::cout<< um1[1] <<std::endl;
+    um1[6]="Balloon";
+    um1.insert({{7,"Racket"},{12, "Court"},{10, "Hat"}});
+    um1.erase(3);
+    for(const auto& [key, value] : um1){
+        std::cout<<key<< " > " << value << std::endl;
+    }
+    if(um1.contains(7)){
+        std::cout<< "Oui" <<std::endl;
+    }
+    
+    std::map<int, std::string> um2{{3, "arbre"}, {1, "Maison"}, {2, "Fourchette"}};
+    std::cout<< um2[1] <<std::endl;
+    um2[1]="Villa";
+    std::cout<< um2[1] <<std::endl;
+    um2[6]="Balloon";
+    um2.insert({{7,"Racket"},{12, "Court"},{10, "Hat"}});
+    um2.erase(3);
+    for(const auto& [key, value] : um2){
+        std::cout<<key<< " > " << value << std::endl;
+    }
+    if(um2.contains(7)){
+        std::cout<< "Oui" <<std::endl;
+    }
+}
+
 int main()
 {
     // firstTutorial();
@@ -520,7 +553,8 @@ int main()
     // // // testArrayPolymorphisme();
     // testCharacteres();
     // testPile();
-    testList();
+    // testList();
+    testMap();
 
 
     std::cin.get(); 
