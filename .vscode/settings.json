@@ -49,6 +49,8 @@
         "numbers": "cpp",
         "stack": "cpp",
         "list": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "unordered_set": "cpp",
+        "set": "cpp"
     }
 }

@@ -22,7 +22,9 @@
 #include <stack>
 #include <list>
 #include <unordered_map>
+#include <unordered_set>
 #include <map>
+#include <set>
 
 
 enum class Element:int{
@@ -531,6 +533,40 @@ void testMap(){
     }
 }
 
+/*
+* insert()/erase(), clear(), size(), empty(),
+*/
+void testSet(){
+    std::unordered_set<int> s{1, 5, 3, -8};
+    
+    for(const auto& element : s){
+        std::cout<< element << std::endl;
+    }
+    s.insert(9);
+    s.insert(5);
+    s.insert({7, 12, 19});
+    s.erase(9);
+    if(s.find(5)!=std::end(s)){
+        std::cout<< "Trouve ! 5" << std::endl;
+    }
+    if(s.find(15)!=std::end(s)){
+        std::cout<< "Trouve ! 15" << std::endl;
+    }
+    if(s.contains(7)){
+        std::cout<< "Trouve ! 7" << std::endl;
+    }
+    std::cout<< "nb d'elements : "<<s.size()<<std::endl;
+
+
+
+    std::set<int> s1{1, 5, 3, -8};
+    
+    for(const auto& element : s1){
+        std::cout<< element << std::endl;
+    }
+    
+}
+
 int main()
 {
     // firstTutorial();
@@ -554,8 +590,8 @@ int main()
     // testCharacteres();
     // testPile();
     // testList();
-    testMap();
-
+    // testMap();
+    testSet();
 
     std::cin.get(); 
     return 0;
