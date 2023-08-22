@@ -19,6 +19,7 @@
 #include <cassert>
 #include <fstream>
 #include <array>
+#include <stack>
 
 
 enum class Element:int{
@@ -433,6 +434,31 @@ void testCharacteres(){
     std::string_view aezr;
 }
 
+/*
+* size(), empty(), push(), top(), pop(),
+*/
+void testPile(){
+    std::stack<int> st;
+    st.push(5);
+    std::cout<< "element du haut : " << st.top() << std::endl;
+    st.push(3);
+    std::cout<< "element du haut : " << st.top() << std::endl;
+    st.pop();
+    std::cout<< "element du haut : " << st.top() << std::endl;
+    std::cout<< "Taille : " << st.size() << std::endl;
+    if(st.empty()){
+        std::cout<< "Pile vide"<< std::endl;
+    }
+    st.push(7);
+    st.push(9);
+    st.push(12);
+    st.push(31);
+    while (!st.empty()){
+        std::cout<< "element du haut : " << st.top() << std::endl;
+        st.pop();
+    }
+}
+
 int main()
 {
     // firstTutorial();
@@ -453,8 +479,8 @@ int main()
     // testArray();
     // testArrayObject();
     // // // testArrayPolymorphisme();
-    testCharacteres();
-
+    // testCharacteres();
+    testPile();
 
 
     std::cin.get(); 
