@@ -567,6 +567,40 @@ void testSet(){
     
 }
 
+/*
+* std::begin(), std::cbegin(), std::end(), std::cend(), std::next(), std::prev(),
+* std::rbegin(), std::rend(),
+*/
+void testIterateur(){
+    std::string sentence{"bonjour tt le monde ! "};
+    std::string::iterator it{std::begin(sentence)};
+    std::string::const_iterator cit{std::cbegin(sentence)};
+
+    
+    std::cout << *it<< std::endl;
+    std::cout << *it<< std::endl;
+    *it='T';
+    std::cout << *it<< std::endl;
+
+
+
+
+
+    // std::vector<int> vec{1,2,3,4,5};
+    // std::vector<int>::iterator it2{std::begin(vec)};
+    std::vector<std::string> vec{"Youpi"};
+    std::vector<std::string>::iterator it2{std::begin(vec)};
+    std::cout << *it<< std::endl;
+    it=std::next(it);
+    std::cout << *it<< std::endl;
+    for (auto it = std::begin(vec);it!=std::end(vec);it++){
+        std::cout << *it<< std::endl;
+    }
+    std::cout << "Oui" << std::endl;
+
+
+}
+
 int main()
 {
     // firstTutorial();
@@ -591,7 +625,8 @@ int main()
     // testPile();
     // testList();
     // testMap();
-    testSet();
+    // testSet();
+    testIterateur();
 
     std::cin.get(); 
     return 0;
