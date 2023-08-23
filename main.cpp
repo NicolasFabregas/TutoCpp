@@ -28,6 +28,7 @@
 #include <map>
 #include <set>
 #include <algorithm>
+#include <memory>
 
 
 enum class Element:int{
@@ -766,6 +767,142 @@ void testSurchargeOperateur(){
     std::cout << (15+t1) << std::endl;
 }
 
+void change_value_in_method_only(int n){
+    n*=2;
+}
+void change_value(int& n){
+    n*=2;
+}
+void change_value(int* n){  //demande une adresse
+    *n *=2;
+}
+
+
+/*
+* en c : malloc, free
+* en swift(ancien cpp) : new, delete
+* en c++, smart pointer, mais on s'en sert pas vraiment sauf pour du vieux code
+* c++ : unique_ptr, shared_ptr, weak_ptr
+* std::move
+* ptr : swap(), reset(), get(), lock(), release()
+*/
+void testPointeurs(){
+    int n=38;
+    int *pointer_to_n=&n;
+    std::cout<< "n= "<<n<< ", valeur de variable "<<std::endl;
+    std::cout<< "&n= "<<&n<< ", adresse de variable "<<std::endl;
+    std::cout<<"*pointer_to_n= "<<*pointer_to_n<< ", valeur de variable "<<std::endl;
+    std::cout<<"&pointer_to_n= "<<&pointer_to_n<< ", adresse de variable "<<std::endl;
+    std::cout<<"pointer_to_n= "<<pointer_to_n<< ", adresse de pointeur "<<std::endl;
+    change_value_in_method_only(n);    //donne une variable
+    std::cout<<n<<std::endl;
+    change_value(n);    //donne une variable
+    std::cout<<n<<std::endl;
+    change_value(&n);  //donne une adresse
+    std::cout<<n<<std::endl;
+
+
+
+    int* ptr=nullptr;
+    int x=2;
+    ptr=&x;
+    std::cout<<* ptr<<std::endl;
+    std::cout<<x<<std::endl;
+    *ptr=3;
+    std::cout<<* ptr<<std::endl;
+    std::cout<<x<<std::endl;
+
+
+    int y=5;
+    ptr=&y;
+    std::cout<<* ptr<<std::endl;
+    int z=7;
+    ptr=&z;
+    std::cout<<* ptr<<std::endl;
+
+
+    //RAII
+    //UNIQUE
+    std::unique_ptr<int> uptr{std::make_unique<int>(11)};
+    std::cout<<"unique : "<<* uptr<<std::endl;
+    *uptr*=2;
+    std::cout<<"unique : "<<* uptr<<std::endl;
+    // std::unique_ptr<int> uptr2{uptr};    //PAS POSSIBLE de copier
+    
+
+
+    if(uptr){
+        std::cout<<"Oui"<<std::endl;
+    }
+    uptr.reset();
+    if(!uptr){
+        std::cout<<"pas d'obj"<<std::endl;
+    }
+    std::unique_ptr<int> uptr1{std::make_unique<int>(19)};
+    std::unique_ptr<int> uptr2{std::make_unique<int>(23)};
+    std::cout<<"unique : "<<* uptr1<<std::endl;
+    std::cout<<"unique : "<<* uptr2<<std::endl;
+    uptr1.swap(uptr2);
+    std::cout<<"unique : "<<* uptr1<<std::endl;
+    std::cout<<"unique : "<<* uptr2<<std::endl;
+    std::unique_ptr<int> uptr3{uptr2.release()};
+    std::cout<<"unique : "<<* uptr1<<std::endl;
+    // std::cout<<"unique : "<<* uptr2<<std::endl; uptr2 est VIDE
+    std::cout<<"unique : "<<* uptr3<<std::endl;
+
+
+    //SHARED
+    std::shared_ptr<int> sptr{std::make_shared<int>(13)};
+    std::cout<<"proprietaire de ressource : "<<sptr.use_count()<<std::endl;
+    std::shared_ptr<int> sptr2{sptr};
+    std::shared_ptr<int> sptr3{sptr};
+    std::cout<<"proprietaire de ressource : "<<sptr.use_count()<<std::endl;
+    sptr3.reset();
+    std::cout<<"proprietaire de ressource : "<<sptr.use_count()<<std::endl;
+    std::cout<<"shared : "<<* sptr<<std::endl;
+    std::cout<<"shared : "<<* sptr<<std::endl;
+    *sptr*=2;
+    std::cout<<"shared : "<<* sptr<<std::endl;    // POSSIBLE de copier
+    std::cout<<"shared : "<<* sptr2<<std::endl;
+    sptr2.reset();
+
+    if(sptr.unique()){
+        std::cout<<"seul"<<std::endl;
+    }
+    else{
+        std::cout<<"partage"<<std::endl;
+    }
+
+    //WEAK
+    std::weak_ptr<int> wptr{sptr};
+    if(auto ob =wptr.lock()){
+        std::cout<<"Weak : "<<*ob<<std::endl;
+    }
+    else{
+        std::cout<<"Peux pas lock"<<std::endl;
+    }
+  
+    if(wptr.expired()){
+        std::cout<<"no owner"<<std::endl;
+    }
+    else{
+        std::cout<< wptr.use_count()<<" owner(s)"<<std::endl;
+    }
+    sptr.reset();
+    if(wptr.expired()){
+        std::cout<<"no owner"<<std::endl;
+    }
+    else{
+        std::cout<< wptr.use_count()<<" owner(s)"<<std::endl;
+    }
+
+
+
+    //OLD
+    int* pRaw{uptr1.get()};//pour les anciens pointeurs
+
+}
+
 int main()
 {
     // firstTutorial();
@@ -794,7 +931,9 @@ int main()
     // testIterateur();
     // testAlgo();
     // testGenericite();
-    testSurchargeOperateur();
+    // testSurchargeOperateur();
+    testPointeurs();
+
     std::cin.get(); 
     return 0;
 }
