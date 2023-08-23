@@ -14,6 +14,7 @@
 #include "headers/english.hpp"
 #include "headers/indonesian.hpp"
 #include "headers/number.hpp"
+#include "headers/time.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -751,6 +752,20 @@ void testGenericite(){
     std::cout << dc2.getM()<<std::endl;
 }
 
+/*
+* <type_retour> operators(...)
+* <object>.operator+(<args>)
+*/
+void testSurchargeOperateur(){
+    nico::time t1{12, 23, 34};
+    std::cout << t1 << std::endl;
+    nico::time t2{3, 11, 05};
+    std::cout << t2 << std::endl;
+    std::cout << (t1+t2) << std::endl;
+    std::cout << (t1+15) << std::endl;
+    std::cout << (15+t1) << std::endl;
+}
+
 int main()
 {
     // firstTutorial();
@@ -778,7 +793,8 @@ int main()
     // testSet();
     // testIterateur();
     // testAlgo();
-    testGenericite();
+    // testGenericite();
+    testSurchargeOperateur();
     std::cin.get(); 
     return 0;
 }
