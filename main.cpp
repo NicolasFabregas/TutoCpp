@@ -13,6 +13,7 @@
 #include "headers/someone.hpp"
 #include "headers/english.hpp"
 #include "headers/indonesian.hpp"
+#include "headers/number.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -464,6 +465,7 @@ void testPile(){
         st.pop();
     }
 }
+
 /*
 * front(), back(), size(), empty(), push_front(), push_back, pop_front(), pop_back, insert(), clear()
 * sort(), reverse()
@@ -718,6 +720,36 @@ void testAlgo(){
     std::cout <<"min :" << *res <<std::endl;
 }
 
+/*
+* int sum(int a, int b), double sum(double a, double b) pas terrible d'avoir une methode par type de données
+* T sum(T a, T b) mieux
+* on peut choisir un autre calcul pour un cas, par exemple somme de booleens
+*/
+void testGenericite(){
+    std::list<int> someList{1, 2, 3, 4, 5};
+    for (const auto& element : someList){
+        std::cout << element << std::endl;
+    }
+    std::list<std::string> anotherList{"aaa", "bbb", "ccc"};
+    for (const auto& element : anotherList){
+        std::cout << element << std::endl;
+    }
+
+    auto r1 = sum(4,7);
+    std::cout << r1 << std::endl;
+    auto r2=sum(7.2, 3.1);
+    std::cout << r2 << std::endl;
+    auto r3=sum(true, false);
+    std::cout << r3 << std::endl;
+
+    DataContainer<int> dc1{25, true};
+    std::cout << dc1.getN()<<std::endl;
+    std::cout << dc1.getM()<<std::endl;
+
+    DataContainer<std::string> dc2{"Hello", false};
+    std::cout << dc2.getN()<<std::endl;
+    std::cout << dc2.getM()<<std::endl;
+}
 
 int main()
 {
@@ -745,8 +777,8 @@ int main()
     // testMap();
     // testSet();
     // testIterateur();
-    testAlgo();
-
+    // testAlgo();
+    testGenericite();
     std::cin.get(); 
     return 0;
 }
