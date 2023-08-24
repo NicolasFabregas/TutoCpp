@@ -32,6 +32,7 @@
 #include <chrono>
 #include <thread>
 #include <mutex>
+#include <future>
 
 
 enum class Element:int{
@@ -971,7 +972,7 @@ void testDateEtTemps(){
 * threads get_id(),bool joignable, th1.swap(th2)
 * mutex bool try_lock()
 */
-void doTask(std::mutex &&m, std::string name, unsigned int delay){
+void doTask(std::mutex &m, std::string name, unsigned int delay){
 
     m.lock();
     for(auto i=0;i<5;++i){
@@ -992,19 +993,65 @@ void doTask(std::mutex &&m, std::string name, unsigned int delay){
 
 void testThreads(){
     std::cout <<"Instruction du thread principal"<<std::endl;
-    // doTask("Task1");
-    // doTask("Task2");
-    std::thread th1{doTask, "TH1", 1};
-    std::thread th2{doTask, "TH2", 2};
+    std::mutex m;
+    std::thread th1{doTask, std::ref(m), "TH1", 1};
+    std::thread th2{doTask, std::ref(m), "TH2", 2};
     std::cout <<"Une autre instruction du thread principal"<<std::endl;
     th1.join();
     th2.join();
 
-    // std::mutex m;
-    // {
-    //     std::lock_guard lock(m);
-    //     std::cout <<"hehehe"<<std::endl;
-    // }
+    {
+        std::lock_guard lock(m);
+        std::cout <<"hehehe"<<std::endl;
+    }
+}
+
+void getNumber(std::promise<int>&& result){
+    result.set_value(188);
+}
+
+int getNumber_NoArgs(){
+    return 199;
+}
+
+/*
+* promesse (promise) : producteur
+* futur (future) : consommateur
+*/
+void testPromise(){
+    std::promise<int> somePromise;
+    std::future<int> someFuture{somePromise.get_future()};
+    std::thread th{getNumber, std::move(somePromise)};
+    auto result{someFuture.get()};
+    std::cout <<result<<std::endl;
+    th.join();
+
+
+    std::promise<int> somePromise2;
+    std::future<int> someFuture2{somePromise2.get_future()};
+    std::async([&somePromise2](){
+        int n{getNumber_NoArgs()};
+        somePromise2.set_value(n);
+    });
+    auto result2{someFuture2.get()};
+    std::cout <<result2 << std::endl;
+
+
+    std::future<int> someFuture3{std::async(getNumber_NoArgs)};
+    auto result3{someFuture3.get()};
+    std::cout <<result3 << std::endl;
+
+
+
+    std::future<int> someFuture4{std::async(std::launch::async, getNumber_NoArgs)};
+    auto result4{someFuture4.get()};
+    std::cout <<result4 << std::endl;
+
+
+    std::future<int> someFuture5{std::async(std::launch::deferred, getNumber_NoArgs)};
+    auto result5{someFuture5.get()};
+    std::cout <<result5 << std::endl;
+
 }
 
 int main()
@@ -1037,8 +1084,9 @@ int main()
     // testGenericite();
     // testSurchargeOperateur();
     // testPointeurs();
-    testDateEtTemps();
-    testThreads();
+    // testDateEtTemps();
+    // testThreads();
+    testPromise();
     std::cin.get(); 
     return 0;
 }

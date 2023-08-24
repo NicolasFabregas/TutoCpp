@@ -65,6 +65,7 @@
         "semaphore": "cpp",
         "stop_token": "cpp",
         "mutex": "cpp",
-        "condition_variable": "cpp"
+        "condition_variable": "cpp",
+        "future": "cpp"
     }
 }
