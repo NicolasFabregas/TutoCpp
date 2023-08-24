@@ -23,7 +23,6 @@
                 "-g",
                 "${workspaceFolder}/*.cpp",
                 "${workspaceFolder}/sources/*.cpp",
-                "${workspaceFolder}/headers/*.hpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],

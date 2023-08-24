@@ -52,6 +52,19 @@
         "map": "cpp",
         "unordered_set": "cpp",
         "set": "cpp",
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "charconv": "cpp",
+        "chrono": "cpp",
+        "ctime": "cpp",
+        "ratio": "cpp",
+        "format": "cpp",
+        "iomanip": "cpp",
+        "span": "cpp",
+        "variant": "cpp",
+        "thread": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp",
+        "mutex": "cpp",
+        "condition_variable": "cpp"
     }
 }

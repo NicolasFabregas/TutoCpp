@@ -29,6 +29,9 @@
 #include <set>
 #include <algorithm>
 #include <memory>
+#include <chrono>
+#include <thread>
+#include <mutex>
 
 
 enum class Element:int{
@@ -903,6 +906,107 @@ void testPointeurs(){
 
 }
 
+/*
+* y, m, w, d
+* h, min, s
+* ms, us, ns
+*/
+/*
+* IANA, "Europe/Paris"
+*/
+/*
+* %D %F ou %Y, %m, %w, %d
+* %R, %T, %H, %M, %S
+* %ms, %us, ns
+* %A, %a
+* %B, %b
+*/
+/*
+* std::time_t
+*/
+void testDateEtTemps(){
+    std::chrono::year y{2019};  //accepte -32000 à 32000
+    std::chrono::month m{3};  //1 à 12
+    std::chrono::day d{28};  //1 à 31
+    std::cout <<d <<"/"<<m <<"/"<<y <<std::endl;
+    if(d.ok() && m.ok() && y.ok()){
+        std::cout <<"correct" <<std::endl;
+    }
+    std::chrono::days d1{365};
+    std::cout <<d1 <<std::endl;
+
+    std::chrono::hours h1{15};
+    std::chrono::hours h2{15};
+    std::cout <<h1 <<std::endl;
+    std::cout <<h2 <<std::endl;
+    std::cout <<h1+h2 <<std::endl;
+    std::chrono::minutes min{365};
+    std::cout <<min <<std::endl;
+    std::cout <<h1+min <<std::endl;
+    std::chrono::milliseconds ms{100};
+    std::cout <<ms<<std::endl;
+    std::chrono::nanoseconds ns{99};
+    std::cout <<ns<<std::endl;
+    using namespace std::chrono_literals;
+    std::chrono::hours h3{16h};
+    std::chrono::minutes min2{23min};
+    std::cout <<h3+min2<<std::endl;
+
+
+    auto today{std::chrono::system_clock::now()};
+    std::cout <<today<<std::endl;
+    auto formattedDate{std::format("{:%d/%m/%Y}", today)};
+
+    std::cout <<formattedDate<<std::endl;
+
+
+
+
+    std::chrono::zoned_time date{"Europe/Paris", std::chrono::system_clock::now()};
+    std::cout << date <<std::endl;
+
+}
+
+/*
+* threads get_id(),bool joignable, th1.swap(th2)
+* mutex bool try_lock()
+*/
+void doTask(std::mutex &&m, std::string name, unsigned int delay){
+
+    m.lock();
+    for(auto i=0;i<5;++i){
+        std::this_thread::sleep_for(std::chrono::seconds(delay));
+        std::cout << std::this_thread::get_id()<< " : "<< name <<" : "<< i<<std::endl;
+    }
+    m.unlock();
+
+
+    std::lock_guard<std::mutex> lock(m);
+    for(auto i=0;i<5;++i){
+        std::this_thread::sleep_for(std::chrono::seconds(delay));
+        std::cout << std::this_thread::get_id()<< " : "<< name <<" : "<< i<<std::endl;
+    }
+
+
+}
+
+void testThreads(){
+    std::cout <<"Instruction du thread principal"<<std::endl;
+    // doTask("Task1");
+    // doTask("Task2");
+    std::thread th1{doTask, "TH1", 1};
+    std::thread th2{doTask, "TH2", 2};
+    std::cout <<"Une autre instruction du thread principal"<<std::endl;
+    th1.join();
+    th2.join();
+
+    // std::mutex m;
+    // {
+    //     std::lock_guard lock(m);
+    //     std::cout <<"hehehe"<<std::endl;
+    // }
+}
+
 int main()
 {
     // firstTutorial();
@@ -932,8 +1036,9 @@ int main()
     // testAlgo();
     // testGenericite();
     // testSurchargeOperateur();
-    testPointeurs();
-
+    // testPointeurs();
+    testDateEtTemps();
+    testThreads();
     std::cin.get(); 
     return 0;
 }
